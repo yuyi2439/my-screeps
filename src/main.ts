@@ -1,4 +1,17 @@
 import { ErrorMapper } from "utils/ErrorMapper";
+import { creepMain } from "creep/mod";
+import { generatePixel } from "utils/mod";
+import { spawnMain } from "spawn/mod";
+
+// When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
+// This utility uses source maps to get the line numbers and file names of the original, TS source code
+export const loop = ErrorMapper.wrapLoop(() => {
+    console.log(`Current game tick is ${Game.time}`);
+
+    generatePixel();
+    spawnMain();
+    creepMain();
+});
 
 declare global {
     /*
@@ -20,17 +33,29 @@ declare global {
         room: string;
         working: boolean;
     }
-}
 
-// When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
-// This utility uses source maps to get the line numbers and file names of the original, TS source code
-export const loop = ErrorMapper.wrapLoop(() => {
-    console.log(`Current game tick is ${Game.time}`);
-
-    // Automatically delete memory of missing creeps
-    for (const name in Memory.creeps) {
-        if (!(name in Game.creeps)) {
-            delete Memory.creeps[name];
-        }
+    interface Creep {
+        /**
+         * 挖 Source
+         */
+        harvestSourse(): void;
     }
-});
+
+    interface SpawnMemory {
+        /**
+         * 该 spawn 的队列
+         */
+        queue: {
+            role: string;
+        }[];
+    }
+
+    interface StructureSpawn {
+        /**
+         * 添加队列
+         */
+        addQueue(role: string): void;
+    }
+
+    type CreepBody = BodyPartConstant[];
+}
