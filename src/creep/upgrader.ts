@@ -1,16 +1,24 @@
-export function upgrader(creep: Creep): void {
+export function upgrader(creep: Creep, updateMemory: boolean): void {
     // working 代表正在升级controller
-    const working = Memory.creeps[creep.name].working;
-    if (working && creep.store.getUsedCapacity() === 0) {
-        Memory.creeps[creep.name].working = false;
-    } else if (!working && creep.store.getFreeCapacity() === 0) {
-        Memory.creeps[creep.name].working = true;
+    const name = creep.name;
+    let working: boolean;
+
+    if (updateMemory) {
+        if (Memory.creeps[name].working && creep.store.getUsedCapacity() === 0) {
+            Memory.creeps[name].working = false;
+        } else if (!Memory.creeps[name].working && creep.store.getFreeCapacity() === 0) {
+            Memory.creeps[name].working = true;
+        }
+
+        working = Memory.creeps[name].working;
+    } else {
+        working = creep.store.getFreeCapacity() === 0;
     }
 
-    if (Memory.creeps[creep.name].working) {
+    if (working) {
         const c = creep.room.controller;
         if (c === undefined) {
-            console.log("creep %s: creep.room.controller is undefined", creep.name);
+            console.log("creep %s: creep.room.controller is undefined", name);
             return;
         }
         if (creep.upgradeController(c) === ERR_NOT_IN_RANGE) {

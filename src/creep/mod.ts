@@ -18,7 +18,7 @@ export function creepMain(): void {
                 harvester(creep);
                 break;
             case "upgrader":
-                upgrader(creep);
+                upgrader(creep, true);
                 break;
         }
     }
