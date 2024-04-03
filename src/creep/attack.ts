@@ -44,4 +44,8 @@ export function attacker(creep: Creep): void {
     if (hostileStructure) {
         attack(creep, hostileStructure);
     }
+
+    // 没事干就去守卫边界
+    const exit = creep.room.findExitToGuard();
+    creep.moveTo(exit);
 }

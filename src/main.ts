@@ -1,3 +1,4 @@
+import "./room/mod";
 import { ErrorMapper } from "utils/ErrorMapper";
 import { creepMain } from "creep/mod";
 import { generatePixel } from "utils/mod";
@@ -39,6 +40,10 @@ declare global {
          * 添加队列
          */
         addQueue(role: string): void;
+    }
+
+    interface Room {
+        findExitToGuard(this: Room): RoomPosition;
     }
 
     type CreepBody = BodyPartConstant[];
