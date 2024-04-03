@@ -1,4 +1,4 @@
-import "./utils";
+import "./prototype";
 
 export function spawnMain(): void {
     for (const name in Game.spawns) {
@@ -12,16 +12,29 @@ export function spawnMain(): void {
 
         if (queue.length > 0) {
             const role = queue[0].role;
-            // const body = getBodyByRole(room, role);
-            const body = [WORK, CARRY, MOVE];
-            if (!spawn.spawning && room.energyAvailable >= getEnergyByBody(body)) {
+            const body = getBodyByRole(role);
+            if (!spawn.spawning && spawn.my) {
                 const newName = role + Game.time.toString();
-                spawn.spawnCreep(body, newName, {
+                const r = spawn.spawnCreep(body, newName, {
                     memory: { role, room: room.name, working: false }
                 });
-                queue.shift();
+                if (r === OK) {
+                    queue.shift();
+                } else if (r === ERR_INVALID_ARGS) {
+                    // Body 没有被恰当地描述
+                } else if (r === ERR_RCL_NOT_ENOUGH) {
+                    // 您的房间控制器级别不足以使用此 spawn
+                }
             }
         }
+    }
+}
+
+function getBodyByRole(role: string): CreepBody {
+    if (role === "attacker") {
+        return [ATTACK, MOVE];
+    } else {
+        return [WORK, CARRY, MOVE];
     }
 }
 
@@ -57,21 +70,3 @@ export function spawnMain(): void {
 //     }
 //     return body;
 // }
-
-function getEnergyByBody(body: CreepBody) {
-    let energy = 0;
-    for (const i of body) {
-        switch (i) {
-            case WORK:
-                energy += 100;
-                break;
-            case CARRY:
-                energy += 50;
-                break;
-            case MOVE:
-                energy += 50;
-                break;
-        }
-    }
-    return energy;
-}

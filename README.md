@@ -1,18 +1,8 @@
-# Screeps Typescript Starter
+# Yuyi2439's Screeps Code
 
-Screeps Typescript Starter is a starting point for a Screeps AI written in Typescript. It provides everything you need to start writing your AI whilst leaving `main.ts` as empty as possible.
+这是由 yuyi2439 编写的 screeps 代码
 
-## Basic Usage
-
-You will need:
-
-- [Node.JS](https://nodejs.org/en/download) (10.x || 12.x)
-- A Package Manager ([Yarn](https://yarnpkg.com/en/docs/getting-started) or [npm](https://docs.npmjs.com/getting-started/installing-node))
-- Rollup CLI (Optional, install via `npm install -g rollup`)
-
-Download the latest source [here](https://github.com/screepers/screeps-typescript-starter/archive/master.zip) and extract it to a folder.
-
-Open the folder in your terminal and run your package manager to install the required packages and TypeScript declaration files:
+## ~~食用~~ 使用方法
 
 ```bash
 # npm
@@ -21,8 +11,6 @@ npm install
 # yarn
 yarn
 ```
-
-Fire up your preferred editor with typescript installed and you are good to go!
 
 ### Rollup and code upload
 
@@ -36,7 +24,7 @@ You can use `-cw` instead of `-c` to automatically re-run when your source code 
 
 Finally, there are also NPM scripts that serve as aliases for these commands in `package.json` for IDE integration. Running `npm run push-main` is equivalent to `rollup -c --environment DEST:main`, and `npm run watch-sim` is equivalent to `rollup -cw --dest sim`.
 
-#### Important! To upload code to a private server, you must have [screepsmod-auth](https://github.com/ScreepsMods/screepsmod-auth) installed and configured!
+#### Important! To upload code to a private server, you must have [screepsmod-auth](https://github.com/ScreepsMods/screepsmod-auth) installed and configured
 
 ## Typings
 

@@ -1,4 +1,5 @@
-import "./utils";
+import "./prototype";
+import { attacker } from "./attack";
 import { harvester } from "./harvester";
 import { upgrader } from "./upgrader";
 
@@ -19,6 +20,9 @@ export function creepMain(): void {
                 break;
             case "upgrader":
                 upgrader(creep);
+                break;
+            case "attacker":
+                attacker(creep);
                 break;
         }
     }

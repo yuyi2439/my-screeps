@@ -1,5 +1,5 @@
 export function upgrader(creep: Creep): void {
-    // working 代表正在升级controller
+    // working 代表正在升级 controller
     const working = Memory.creeps[creep.name].working;
     if (working && creep.store.getUsedCapacity() === 0) {
         Memory.creeps[creep.name].working = false;
